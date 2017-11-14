@@ -26,7 +26,7 @@ class Note extends React.Component {
     return (
       <div className="note">
         {/* Used Uncontrolled Component method */}
-        <textarea ref={(input) => this.input = input}>{this.props.children}</textarea>
+        <textarea defaultValue={this.props.children} ref={(input) => this.input = input}></textarea>
         <span>
           <button onClick={this.save}>SAVE</button>
         </span>

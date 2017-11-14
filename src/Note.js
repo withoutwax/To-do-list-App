@@ -1,44 +1,69 @@
 import React from 'react';
-import './Note.css';
+import './style.css';
+import ReactDraggable from 'react-draggable';
 
 
 class Note extends React.Component {
   constructor() {
     super();
-    this.state = { edit: false }
+    this.state = {
+      edit: false,
+      text: ""
+    }
 
     this.edit = this.edit.bind(this);
     this.save = this.save.bind(this);
     this.delete = this.delete.bind(this);
+    this.updateNote = this.updateNote.bind(this);
+  }
+  componentWillMount() {
+    this.style = {
+      right: this.randomBetween(0, window.innerWidth -150, 'px'),
+      top: this.randomBetween(0, window.innerHeight -150, 'px')
+    }
+    this.setState({text: this.props.children});
+  }
+  randomBetween(x, y, s) {
+    return (x + Math.floor(Math.random() * (y-x))) + s
   }
   edit() {
     this.setState({edit: true});
   }
-  save() {
-    var val = this.input.value;
-    var id = this.props.id;
-    this.setState({edit: false});
-    this.props.notes(val, id);
+
+  save(e) {
+    this.setState(
+      {
+        text: e.target.value
+      });
   }
+  updateNote() {
+    var id = this.props.id;
+      this.props.notes(this.state.text, id);
+      console.log(this.state.text);
+      this.setState({
+        edit: false
+      });
+  }
+
   delete() {
     this.props.deleteNote(this.props.children);
-    // console.log(this.props.deleteNote);
-    // console.log(this.props.children);
   }
   editNote() {
     return (
-      <div className="note">
-        {/* Used Uncontrolled Component method */}
-        <textarea defaultValue={this.props.children} ref={(input) => this.input = input}></textarea>
+      <div className="note" style={this.style}>
+        {/* Changed into Component method = value */}
+        {/* <textarea defaultValue={this.props.children} ref={input => this._text = input}></textarea> */}
+        {/* MUST USE autoFocus - otherwise the defaultValue won't change in editing mode */}
+        <textarea autoFocus defaultValue={this.state.text} onChange={ e => this.save(e)}></textarea>
         <span>
-          <button onClick={this.save}>SAVE</button>
+          <button onClick={this.updateNote}>SAVE</button>
         </span>
       </div>
     );
   }
   displayNote() {
     return (
-      <div className="note">
+      <div className="note" style={this.style}>
         <p>{this.props.children}</p>
         <span>
           <button onClick={this.edit}>Edit</button>
@@ -50,7 +75,9 @@ class Note extends React.Component {
 
   render() {
     return (
-      (this.state.edit) ? this.editNote() : this.displayNote()
+      <ReactDraggable>
+        {(this.state.edit) ? this.editNote() : this.displayNote()}
+      </ReactDraggable>
     );
   }
 }

@@ -39,16 +39,16 @@ class Board extends React.Component {
     var notes = this.state.notesArray;
     notes = notes.map((item, index) => {
       return (
-        <Note notes={this.updateNote} id={index} key={index} deleteNote={this.deleteNote}>{item}</Note>
+          <Note notes={this.updateNote} id={index} key={index} deleteNote={this.deleteNote}>{item}</Note>
       );
     });
 
     return (
-      <div>
-        {/* <Note notes={this.updateNote}>{this.state.note}</Note> */}
-        {notes}
-        <button id="addButton" onClick={this.add}>+</button>
-      </div>
+        <div>
+          {/* <Note notes={this.updateNote}>{this.state.note}</Note> */}
+          {notes}
+            <button id="addButton" onClick={this.add}>+</button>
+        </div>
     )
   }
 }

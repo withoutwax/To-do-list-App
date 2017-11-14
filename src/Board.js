@@ -13,7 +13,8 @@ class Board extends React.Component {
   }
 
   add() {
-    alert('Let\' add more Notes!')
+    alert('Let\' add more Notes!');
+
   }
 
   updateNote = (data) => {

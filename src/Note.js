@@ -9,6 +9,7 @@ class Note extends React.Component {
 
     this.edit = this.edit.bind(this);
     this.save = this.save.bind(this);
+    this.delete = this.delete.bind(this);
   }
   edit() {
     this.setState({edit: true});
@@ -21,6 +22,11 @@ class Note extends React.Component {
     //console.log(this.state);
     // console.log(val);
     this.props.notes(val);
+  }
+  delete() {
+    this.props.deleteNote(this.props.children);
+    // console.log(this.props.deleteNote);
+    // console.log(this.props.children);
   }
   editNote() {
     return (
@@ -39,7 +45,7 @@ class Note extends React.Component {
         <p>{this.props.children}</p>
         <span>
           <button onClick={this.edit}>Edit</button>
-          <button>X</button>
+          <button onClick={this.delete}>X</button>
         </span>
       </div>
     );

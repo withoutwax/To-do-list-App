@@ -13,15 +13,12 @@ class Note extends React.Component {
   }
   edit() {
     this.setState({edit: true});
-    console.log(this.state);
   }
   save() {
     var val = this.input.value;
-
+    var id = this.props.id;
     this.setState({edit: false});
-    //console.log(this.state);
-    // console.log(val);
-    this.props.notes(val);
+    this.props.notes(val, id);
   }
   delete() {
     this.props.deleteNote(this.props.children);

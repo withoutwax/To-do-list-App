@@ -15,17 +15,20 @@ class Board extends React.Component {
   }
 
   add() {
-    console.log("Let's add more Notes!");
-    //this.state.notesArray.push('Default Note');
-    console.log(this.state.notesArray);
+    var arrayNote = this.state.notesArray.slice();
+    arrayNote.push('Default Note');
+    this.setState({notesArray: arrayNote});
   }
 
-  updateNote = (data) => {
-    this.setState({ note: data });
-    console.log(data)
+  updateNote = (data, id) => {
+    const item = this.state.notesArray;
+    item[id] = data;
+    //this.state.notesArray[id] = data;
+    this.setState({ item });
   }
+
   deleteNote = (item) => {
-    let updatedNote = this.state.notesArray.filter((val, index) => {
+    var updatedNote = this.state.notesArray.filter((val, index) => {
       return item !== val;
     });
     this.setState({
@@ -33,10 +36,10 @@ class Board extends React.Component {
     });
   }
   render() {
-    let notes = this.state.notesArray;
+    var notes = this.state.notesArray;
     notes = notes.map((item, index) => {
       return (
-        <Note notes={this.updateNote} key={index} deleteNote={this.deleteNote}>{item}</Note>
+        <Note notes={this.updateNote} id={index} key={index} deleteNote={this.deleteNote}>{item}</Note>
       );
     });
 

@@ -16,7 +16,7 @@ class Board extends React.Component {
 
   add() {
     var arrayNote = this.state.notesArray.slice();
-    arrayNote.push('Default Note');
+    arrayNote.push('New Note');
     this.setState({
       notesArray: arrayNote
     });

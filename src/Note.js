@@ -39,14 +39,13 @@ class Note extends React.Component {
   updateNote() {
     var id = this.props.id;
       this.props.notes(this.state.text, id);
-      console.log(this.state.text);
       this.setState({
         edit: false
       });
   }
 
   delete() {
-    this.props.deleteNote(this.props.children);
+    this.props.deleteNote(this.props.id);
   }
   editNote() {
     return (

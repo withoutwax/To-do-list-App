@@ -23,6 +23,7 @@ class Note extends React.Component {
     }
     this.setState({text: this.props.children});
   }
+
   randomBetween(x, y, s) {
     return (x + Math.floor(Math.random() * (y-x))) + s
   }
@@ -45,7 +46,8 @@ class Note extends React.Component {
   }
 
   delete() {
-    this.props.deleteNote(this.props.id);
+    var id = this.props.id
+    this.props.deleteNote(id);
   }
   editNote() {
     return (

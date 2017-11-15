@@ -6,7 +6,8 @@ class Board extends React.Component {
     super();
     this.state = {
       note: 'Default Note',
-      notesArray: ['Default Note', 'Default Note 02', 'Default Note 03']
+      notesArray: ['New Note 01', null, 'New Note 02', 'New Note 03']
+      //deleted: []
     }
     this.updateNote = this.updateNote.bind(this);
     this.add = this.add.bind(this);
@@ -24,9 +25,9 @@ class Board extends React.Component {
   updateNote = (data, id) => {
     const item = this.state.notesArray;
     item[id] = data;
-    console.log(item);
     //this.state.notesArray[id] = data;
     this.setState({ item });
+
   }
 
   deleteNote = (item) => {
@@ -41,23 +42,41 @@ class Board extends React.Component {
     this.setState({
        notesArray: updatedNote
     });
+
+
+    // var concatItem = this.state.deleted.concat(item);
+    // this.setState({deleted: concatItem}, function() {
+    //   // console.log(this.state.deleted);
+    // });
   }
 
   render() {
-    var notes = this.state.notesArray;
-    notes = notes.map((item, index) => {
-      if (item !== null){
-      return (
+    /*
+    console.log(this.state.deleted);
+    var notes = this.state.notesArray
+      .filter((noteText, index) => {
+        return this.state.deleted.indexOf(index) === -1;
+      })
+      .map((item, index) => {
+        return (
           <Note notes={this.updateNote} id={index} key={index} deleteNote={this.deleteNote}>{item}</Note>
-      );
-    }
+        );
+      })
+      */
+    var notes = this.state.notesArray;
+      notes = notes.map((item, index) => {
+      if (item !== null){
+        return (
+            <Note notes={this.updateNote} id={index} key={index} deleteNote={this.deleteNote}>{item}</Note>
+        );
+      }
     });
 
     return (
         <div>
           {/* <Note notes={this.updateNote}>{this.state.note}</Note> */}
           {notes}
-            <button id="addButton" onClick={this.add}>+</button>
+          <button id="addButton" onClick={this.add}>+</button>
         </div>
     )
   }

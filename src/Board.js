@@ -6,7 +6,7 @@ class Board extends React.Component {
     super();
     this.state = {
       note: 'Default Note',
-      notesArray: ['Default Note', 'Default Note 02', 'Default Note 03'],
+      notesArray: ['Default Note', 'Default Note 02', 'Default Note 03']
     }
     this.updateNote = this.updateNote.bind(this);
     this.add = this.add.bind(this);
@@ -30,10 +30,14 @@ class Board extends React.Component {
   }
 
   deleteNote = (item) => {
+    // USED VERY CHEAP WAY TO DELETE NOTES
     //this.state.notesArray.splice(item, 1);
-    var updatedNote = this.state.notesArray.filter((noteText, index) => {
-      return item !== index;
-    });
+    this.state.notesArray[item] = null
+    // var updatedNote = this.state.notesArray.filter((noteText, index) => {
+    //   return item !== index;
+    // });
+    var updatedNote = this.state.notesArray;
+
     this.setState({
        notesArray: updatedNote
     });
@@ -42,9 +46,11 @@ class Board extends React.Component {
   render() {
     var notes = this.state.notesArray;
     notes = notes.map((item, index) => {
+      if (item !== null){
       return (
           <Note notes={this.updateNote} id={index} key={index} deleteNote={this.deleteNote}>{item}</Note>
       );
+    }
     });
 
     return (
